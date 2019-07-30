@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Install Docker Ubuntu 18.04.2 LTS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   <link rel="stylesheet" href="asset/css/style.css"/>
+</head>
+
+<body data-spy="scroll" data-target="#myScrollspy" data-offset="15">
+
+  <div class="container">
+    <div class="row ">
+      <nav class="col-md-3 col-12" id="myScrollspy">
+        <ul class=" affix nav-box nav nav-pills flex-md-column nav-fill nav-justified" data-spy="affix"
+          data-offset-top="205">
+          <li class="nav-item custom-nav">
+            <a class="nav-link link-custom active" href="#section1">Overview</a>
+          </li>
+          <li class="nav-item custom-nav">
+            <a class="nav-link link-custom" href="#section2">Objective of Article</a>
+          </li>
+          <li class="nav-item custom-nav">
+            <a class="nav-link link-custom" href="#section3">Prerequisite</a>
+          </li>
+
+          <li class="nav-item dropdown custom-nav">
+            <a class="dropdown-toggle link-custom-drp " data-toggle="dropdown" href="#">Setup Docker<span
+                class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#section41">Set Repository</a></li>
+              <li><a href="#section42">Install Docker</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <div class="col-md-9 col-12 mobile-margin">
+        <div class="pl-2 pr-2 mt-3">
+          <div class="section-card shadow card p-3" id="section1">
+            <h1>Containerization Using Docker</h1>
+            <p>In the last artlcle we dicussed what is container and containerization. <a href="http://learnsleek.com/container-and-containerisation/">link</a></p>
+            <img id="myImg1" onclick="openImageModal(this.id)" src="asset/architecture.png" alt="Container Architecture" style="max-width:100px">
+            <p>
+            The figure shows ideal and Virtual Machine approach of deploying docker. In this article we will follow Virtual Machine approach. In virtual machine approach docker engine is installed on Virtual Machine.</p>
+			<img id="myImg2" onclick="openImageModal(this.id)" src="asset/docker_environment.png" alt="Container Environment" style="max-width:100px">
+			</p>
+		    <p>
+			In the picture we see Docker Environment. It mainly consist of 4 component
+			<ul>
+				<li>Docker Engine</li>
+				<li>Docker Images</li>
+				<li>Docker Containers</li>
+				<li>Docker Hub</li>
+				
+			</ul>
+			</p>
+			<p>
+            Docker Engine :-
+            Docker Engine is a client-server application and has following components:
+			a.  A server which is a type of long-running program called a daemon process.
+			b.  A REST API which specifies interfaces that programs can use to talk to the daemon.
+			c.  A command line interface (CLI) client.
+			</p>
+			<p>
+			Docker Images :-
+			Docker images are the "source code" for our containers, we use them to build containers.Your image is is a set of layers as you describe.
+			</p>
+			 <p>
+			Docker Containers :-
+			An instance of an image is called a container. Containers are the organizational units of Docker. When we build an image and start running it, we are running in a container. It can be shipped transfered as a executable and run on any docker environment.
+            </p>
+		    <p>
+		    Docker Hub :-
+			Docker stores the images we build in registries. There are public and private registries. Docker company has public registry called Docker hub, where you can also store images privately.
+		    </p>
+		   
+          </div>
+        </div>
+        <div class="pl-2 pr-2 mt-3">
+          <div class="section-card card p-3" id="section2">
+            <h1>Objective of Article</h1>
+            <p>To explain architecture, environment, install docker and run a nginx container.</p>
+          </div>
+        </div>
+        <div class="pl-2 pr-2 mt-3">
+          <div class="section-card card p-3" id="section3">
+            <h1>Prerequisite</h1>
+        	<p>A Virtual Machine from any cloud provider. In this case we are using ec2 instance from amazon.        	   
+        	 </p>
+          </div>
+        </div>
+        <div class="pl-2 pr-2 mt-3">
+          <div class="section-card card p-3" id="section41">
+            <h1>Setup Repository</h1>
+            <p> 1. Update the apt package index:<br>
+					$ sudo apt-get update
+			</p>
+			<p>
+				2. Install packages to allow apt to use a repository over HTTPS:<br>
+					$ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+			</p>
+			<p>
+				3. Add Docker’s official GPG key:<br>
+					$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+			</p>
+			<p>	
+				4. Use the following command to set up the stable repository. You always need the stable repository, even if you want to install builds from the edge or test repositories as well. To add the edge or test repository, add the word edge or test (or both) after the word stable in the commands below.<br>
+					$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" 
+			</p>
+			<p>
+				Note: The lsb_release -cs sub-command below returns the name of your Ubuntu distribution, such as xenial. Sometimes, in a distribution like Linux Mint, you might have to change $(lsb_release -cs) to your parent Ubuntu distribution. For example, if you are using Linux Mint Rafaela, you could use trusty.
+			 </p>
+			 <img id="myImg3" onclick="openImageModal(this.id)" src="asset/setup_repository.png" alt="Setup Repository" style="max-width:100px">
+          </div>
+        </div>
+
+         <div class="pl-2 pr-2 mt-3">
+          <div class="section-card card p-3" id="section42">
+            <h1>Install Docker</h1>
+            <p> 1. Update the apt package index:<br>
+					$ sudo apt-get update
+			</p>
+			<p>
+				2. Install the latest version of Docker CE, or go to the next step to install a specific version. Any existing installation of Docker is replaced. <br>
+
+				$ sudo apt-get install docker-ce
+			 </p>
+			 <p>Check your installation by using docker -v. If you have docker installed successfully. you will get version of docker installaed</p>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- The Close Button -->
+  <span class="close">&times;</span>
+  <!-- Modal Content (The Image) -->
+  <img class="modal-content" id="img01">
+  <!-- Modal Caption (Image Text) -->
+  <div id="caption"></div>
+</div>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <script>
+  	   function openImageModal(imageId) {
+  	   	console.log("imageId", imageId);
+   // Get the modal
+		var modal = document.getElementById("myModal");
+		// Get the image and insert it inside the modal - use its "alt" text as a caption
+		var img = document.getElementById(imageId);
+		var modalImg = document.getElementById("img01");
+		var captionText = document.getElementById("caption");
+		img.onclick = function(){
+		  modal.style.display = "block";
+		  modalImg.src = this.src;
+		  captionText.innerHTML = this.alt;
+		}
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() { 
+		  modal.style.display = "none";
+		}
+	}
+  </script>
+</body>
+
+</html>
+
