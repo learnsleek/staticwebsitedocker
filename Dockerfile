@@ -2,5 +2,6 @@
 FROM ubuntu
 
 FROM nginx:alpine
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY website/  /usr/share/nginx/html/
+RUN chmod 777 -R /usr/share/nginx/html/
+
